@@ -1,70 +1,20 @@
-import {useState} from 'react';
-import {StyleSheet, View, FlatList, Button} from 'react-native';
-import GoalItem from "./components/GoalItem";
-import GoalInput from "./components/GoalInput";
-import {StatusBar} from "expo-status-bar";
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View } from 'react-native';
 
 export default function App() {
-    const [courseGoals, setCourseGoals] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
-    
-    function startAddGoalHandler() {
-        setModalVisible(true);
-    }
-
-    function endAddGoalHandler() {
-        setModalVisible(false);
-    }
-
-    function addGoalInputHandler(enteredGoalText) {
-        setCourseGoals((currentCourseGoals) =>[
-            ...currentCourseGoals,
-            {text: enteredGoalText, id: Math.random().toString()},
-        ]);
-        endAddGoalHandler();
-    }
-
-    function deleteGoalHandler(id) {
-        setCourseGoals(currentCourseGoals => {
-            return currentCourseGoals.filter((goal)=>goal.id !== id);
-        })
-    }
-
   return (
-      <>
-        <StatusBar style='light'/>
-        <View style={styles.appContainer}>
-            <Button title='Add new goal'
-                    color='#5e0acc'
-                    onPress={startAddGoalHandler}
-            />
-            <GoalInput onAddGoal={addGoalInputHandler}
-                       visible = {modalVisible}
-                       onCancel = {endAddGoalHandler}/>
-            <View style={styles.goalsContainer}>
-                <FlatList data={courseGoals} renderItem={(itemData) =>{
-                    return <GoalItem text={itemData.item.text}
-                                     id={itemData.item.id}
-                                     onDeleteItem={deleteGoalHandler}/>
-                }}
-                          keyExtractor={(item,index)=>{
-                              return item.id;
-                          }}
-                          alwaysBounceVertical={false}
-                />
-            </View>
-        </View>
-      </>
+    <View style={styles.container}>
+      <Text>Hello World!!!!</Text>
+      <StatusBar style="auto" />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  appContainer: {
-      flex: 1,
-      paddingTop: 50,
-      paddingHorizontal: 16,
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-    goalsContainer: {
-        flex: 5,
-    },
 });
