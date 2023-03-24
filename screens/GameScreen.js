@@ -83,12 +83,11 @@ function GameScreen({userNumber, onGameOver}) {
                 <View style={styles.listContainer}>
                     <FlatList
                         data={guessRounds}
-                        renderItem={(itemData)=>
+                        renderItem={(itemData) =>
                             <GuessLogItem
                                 roundNumber={guessRoundsListLength - itemData.index}
                                 guess={itemData.item}/>}
-                        keyExtractor={(item)=> item}
-                    />
+                        keyExtractor={(item) => item}/>
                 </View>
             </View>
         </View>
@@ -112,7 +111,6 @@ const styles = StyleSheet.create({
         marginBottom: 12,
     },
     listContainer: {
-        flex: 1,
         padding: 16,
     }
 })
