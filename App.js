@@ -13,6 +13,7 @@ export default function App() {
 
     const [userNumber, setUserNumber] = useState();
     const [gameIsOver, setGameIsOver] = useState(true);
+    const [guessRounds, setGuessRounds] = useState(0);
 
     const [fontsLoaded] = useFonts({
         'opens-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
@@ -33,18 +34,26 @@ export default function App() {
         setGameIsOver(true);
     }
 
+    function startNewGameHandler() {
+        setUserNumber(null);
+        setGuessRounds(0);
+    }
+
     if(userNumber){
         screen = <GameScreen userNumber={userNumber} onGameOver = {gameOverHandler}/>;
     }
 
     if(gameIsOver && userNumber){
-        screen = <GameOverScreen />
+        screen = <GameOverScreen
+            userNumber={userNumber}
+            roundsNumber={guessRounds}
+            onStartNewGame={startNewGameHandler}/>
     }
 
 
 
   return (
-      <LinearGradient colors={[Colors.primary800,Colors.primary800]} style={styles.rootScreen}>
+      <LinearGradient colors={[Colors.primary800,Colors.accent200]} style={styles.rootScreen}>
 
           <ImageBackground
                 source={require('./assets/images/bg.jpg')}
