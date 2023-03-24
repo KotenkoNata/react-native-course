@@ -78,8 +78,11 @@ function GameScreen({userNumber, onGameOver}) {
             </Card>
             <View>
                 <View>
-                    {/*{guessRounds.map(item=><Text key={item}>{item}</Text>)}*/}
-                    <FlatList data={guessRounds} renderItem={({item})=><Text key={item}>{item}</Text>}/>
+                    <FlatList
+                        data={guessRounds}
+                        renderItem={({item})=><Text>{item}</Text>}
+                        keyExtractor={(item)=> item}
+                    />
                 </View>
             </View>
         </View>
