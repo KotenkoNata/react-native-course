@@ -1,28 +1,48 @@
 import {StyleSheet, ImageBackground, SafeAreaView} from 'react-native';
 import StartGameScreen from "./screens/StartGameScreen";
 import {LinearGradient} from "expo-linear-gradient";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import GameScreen from "./screens/GameScreen";
 import Colors from "./constants/colors";
 import GameOverScreen from "./screens/GameOverScreen";
-import {useFonts} from "expo-font";
-import AppLoading from "expo-app-loading";
+import * as Font from "expo-font";
+import * as SplashScreen from "expo-splash-screen";
 
-
-export default function App() {
+function App() {
 
     const [userNumber, setUserNumber] = useState();
     const [gameIsOver, setGameIsOver] = useState(true);
     const [guessRounds, setGuessRounds] = useState(0);
+    const [isLoadingComplete, setLoadingComplete] = useState(false);
 
-    const [fontsLoaded] = useFonts({
+    async function loadFontsAsync() {
+        await Font.loadAsync({
         'opens-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
         'opens-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf'),
     })
-
-    if(!fontsLoaded){
-        return <AppLoading />;
     }
+
+    useEffect(() => {
+        async function loadResourcesAsync() {
+            try {
+                await SplashScreen.preventAutoHideAsync();
+                await loadFontsAsync();
+                await new Promise(resolve => setTimeout(resolve, 2000));
+            } catch (e) {
+                console.warn(e);
+            } finally {
+                setLoadingComplete(true);
+                await SplashScreen.hideAsync();
+            }
+        }
+
+        loadResourcesAsync();
+    }, []);
+
+    if (!isLoadingComplete) {
+        return null;
+    }
+
     function pickedNumberHandler(pickedNumber) {
         setUserNumber(pickedNumber);
         setGameIsOver(false);
@@ -30,8 +50,9 @@ export default function App() {
 
     let screen = <StartGameScreen onPickedNumber = {pickedNumberHandler}/>;
 
-    function gameOverHandler() {
+    function gameOverHandler(numberOfRounds) {
         setGameIsOver(true);
+        setGuessRounds(numberOfRounds);
     }
 
     function startNewGameHandler() {
@@ -50,11 +71,8 @@ export default function App() {
             onStartNewGame={startNewGameHandler}/>
     }
 
-
-
   return (
       <LinearGradient colors={[Colors.primary800,Colors.accent200]} style={styles.rootScreen}>
-
           <ImageBackground
                 source={require('./assets/images/bg.jpg')}
                 resizeMode='cover'
@@ -68,6 +86,8 @@ export default function App() {
       </LinearGradient>
   );
 }
+
+export default App;
 
 const styles = StyleSheet.create({
   rootScreen: {
