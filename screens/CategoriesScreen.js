@@ -1,7 +1,6 @@
 import {CATEGORIES} from "../data/dummy-data";
 import {FlatList} from "react-native";
 import CategoryGridTile from "../components/CategoryGridTile";
-import MealsOverviewScreen from "./MealsOverviewScreen";
 
 
 function CategoriesScreen({navigation}) {
