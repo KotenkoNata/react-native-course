@@ -35,11 +35,11 @@ function ManageExpense({route, navigation}) {
                 amount: 12.00,
                 date: new Date('2023-01-25'),
             });
-        }else{
+        }else {
             expensesCtx.addExpense({
-                description: 'Test',
-                amount: 10.00,
-                date: new Date('2022-02-22'),
+                description: 'Test!!!',
+                amount: 12.00,
+                date: new Date('2023-01-25'),
             });
         }
         navigation.goBack();
