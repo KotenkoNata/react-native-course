@@ -1,10 +1,21 @@
 import {StyleSheet, Text, View} from "react-native";
 import Input from "./Input";
+import {useState} from "react";
 
 function ExpenseForm() {
+    const [inputValue, setInputValue] = useState({
+        amount: "",
+        date: "",
+        description: "",
+    });
     
-    function amountChangeHandler() {
-        
+    function inputChangeHandler(inputIdentifier,enteredValue) {
+        setInputValue((current)=>{
+            return {
+                ...current,
+                [inputIdentifier]: enteredValue,
+            }
+        });
     }
     
     return <View style={styles.form}>
@@ -12,16 +23,20 @@ function ExpenseForm() {
         <View style={styles.inputRow}>
             <Input style={styles.rowInput} label="Amount" textInputConfig={{
                 keyboardType: 'decimal-pad',
-                onChangeText: amountChangeHandler,
+                onChangeText: inputChangeHandler.bind(this, "amount"),
+                value: inputValue.amount,
             }}/>
             <Input style={styles.rowInput} label="Date" textInputConfig={{
                 placeholder: "YYYY-MM-DD",
                 maxLength: 10,
-                onChangeText: ()=>{}
+                onChangeText: inputChangeHandler.bind(this, "date"),
+                value: inputValue.date,
             }}/>
         </View>
         <Input label="Description" textInputConfig={{
             multiline: true,
+            onChangeText: inputChangeHandler.bind(this, "description"),
+            value: inputValue.description,
         }}/>
     </View>
 }
