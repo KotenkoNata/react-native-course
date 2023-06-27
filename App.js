@@ -1,70 +1,57 @@
-import {useState} from 'react';
-import {StyleSheet, View, FlatList, Button} from 'react-native';
-import GoalItem from "./components/GoalItem";
-import GoalInput from "./components/GoalInput";
-import {StatusBar} from "expo-status-bar";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StatusBar } from 'expo-status-bar';
 
-export default function App() {
-    const [courseGoals, setCourseGoals] = useState([]);
-    const [modalVisible, setModalVisible] = useState(false);
-    
-    function startAddGoalHandler() {
-        setModalVisible(true);
-    }
+import LoginScreen from './screens/LoginScreen';
+import SignupScreen from './screens/SignupScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
+import { Colors } from './constants/styles';
 
-    function endAddGoalHandler() {
-        setModalVisible(false);
-    }
+const Stack = createNativeStackNavigator();
 
-    function addGoalInputHandler(enteredGoalText) {
-        setCourseGoals((currentCourseGoals) =>[
-            ...currentCourseGoals,
-            {text: enteredGoalText, id: Math.random().toString()},
-        ]);
-        endAddGoalHandler();
-    }
-
-    function deleteGoalHandler(id) {
-        setCourseGoals(currentCourseGoals => {
-            return currentCourseGoals.filter((goal)=>goal.id !== id);
-        })
-    }
-
-  return (
-      <>
-        <StatusBar style='light'/>
-        <View style={styles.appContainer}>
-            <Button title='Add new goal'
-                    color='#5e0acc'
-                    onPress={startAddGoalHandler}
-            />
-            <GoalInput onAddGoal={addGoalInputHandler}
-                       visible = {modalVisible}
-                       onCancel = {endAddGoalHandler}/>
-            <View style={styles.goalsContainer}>
-                <FlatList data={courseGoals} renderItem={(itemData) =>{
-                    return <GoalItem text={itemData.item.text}
-                                     id={itemData.item.id}
-                                     onDeleteItem={deleteGoalHandler}/>
-                }}
-                          keyExtractor={(item,index)=>{
-                              return item.id;
-                          }}
-                          alwaysBounceVertical={false}
-                />
-            </View>
-        </View>
-      </>
-  );
+function AuthStack() {
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                headerStyle: { backgroundColor: Colors.primary500 },
+                headerTintColor: 'white',
+                contentStyle: { backgroundColor: Colors.primary100 },
+            }}
+        >
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Signup" component={SignupScreen} />
+        </Stack.Navigator>
+    );
 }
 
-const styles = StyleSheet.create({
-  appContainer: {
-      flex: 1,
-      paddingTop: 50,
-      paddingHorizontal: 16,
-  },
-    goalsContainer: {
-        flex: 5,
-    },
-});
+function AuthenticatedStack() {
+    return (
+        <Stack.Navigator
+            screenOptions={{
+                headerStyle: { backgroundColor: Colors.primary500 },
+                headerTintColor: 'white',
+                contentStyle: { backgroundColor: Colors.primary100 },
+            }}
+        >
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+        </Stack.Navigator>
+    );
+}
+
+function Navigation() {
+    return (
+        <NavigationContainer>
+            <AuthStack />
+        </NavigationContainer>
+    );
+}
+
+export default function App() {
+    return (
+        <>
+            <StatusBar style="light" />
+
+            <Navigation />
+        </>
+    );
+}
