@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_KEY = 'AIzaSyAjBTteCXBMnzEOmJyqt3c60yI4YAcHS08';
-async function createUser(email, password) {
+export async function createUser(email, password) {
     const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key='+API_KEY,
         {
             email: email,
