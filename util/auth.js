@@ -10,8 +10,6 @@ export async function authenticate(mode, email, password) {
         password: password,
         returnSecureToken: true,
     })
-
-    console.log(response.data)
 }
 export async function createUser(email, password) {
     await authenticate('signUp', email, password)
