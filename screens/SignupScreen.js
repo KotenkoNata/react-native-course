@@ -18,8 +18,8 @@ function SignupScreen() {
         }catch (e) {
             Alert.alert('Authentication Failed',
                 'Could not create user. Please check your input or try again later.')
+            setIsAuthenticating(false);
         }
-        setIsAuthenticating(false);
     }
 
     if(isAuthenticating){
