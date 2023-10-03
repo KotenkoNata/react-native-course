@@ -1,4 +1,4 @@
-import {FlatList} from "react-native";
+import {FlatList, View, StyleSheet, Text} from "react-native";
 import PlaceItem from "./PlaceItem";
 function PlacesList({places}) {
 
@@ -24,6 +24,6 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     fallbackText: {
-        fontsize: 16,
+        fontsize: "16",
     }
 })
