@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     fallbackText: {
-        fontsize: 16,
+        fontSize: 16,
         color: Colors.primary200,
     }
 })
