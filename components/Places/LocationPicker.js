@@ -1,9 +1,12 @@
-import {View, StyleSheet, Alert} from "react-native";
+import {View, StyleSheet, Alert, Image, Text} from "react-native";
 import OutlineButton from "../UI/OutlineButton";
 import {Colors} from "../../contants/colors";
 import {getCurrentPositionAsync, useForegroundPermissions, PermissionStatus} from 'expo-location';
+import {useState} from "react";
+import {getMapPreview} from "../../util/location";
 
 function LocationPicker() {
+    const [pickedLocation, setPickedLocation] = useState();
     const [locationPermissionInformation, requestPermission] = useForegroundPermissions();
     async function verifyPermissions(){
 
@@ -25,15 +28,31 @@ function LocationPicker() {
             return;
         }
         const location = await getCurrentPositionAsync();
-        console.log(location)
+        setPickedLocation({
+            lat: location.cords.latitude,
+            lng: location.cords.longitude,
+        })
     }
 
     function pickOnMapHandler() {
 
     }
 
+    let locationPreview = <Text>No location picked yet.</Text>
+
+    if(pickedLocation){
+        locationPreview = (
+            <Image style={styles.image}
+                source={{
+                uri: getMapPreview(pickedLocation.lat, pickedLocation.lng
+                )}} />
+        )
+    }
+
     return <View>
-        <View style={styles.mapPreview}></View>
+        <View style={styles.mapPreview}>
+            {locationPreview}
+        </View>
         <View style={styles.action}>
             <OutlineButton icon="location" onPress={getLocationHandler}>Locate User</OutlineButton>
             <OutlineButton icon="map" onPress={pickOnMapHandler}>Pick on Map</OutlineButton>
@@ -52,10 +71,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: Colors.primary100,
         borderRadius: 4,
+        overflow: 'hidden'
     },
     action: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         alignItems: 'center'
+    },
+    image: {
+        width: '100%',
+        height: '100%',
     }
 })
