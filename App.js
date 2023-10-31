@@ -6,9 +6,38 @@ import AddPlace from "./screens/AddPlace";
 import IconButton from "./components/UI/IconButton";
 import {Colors} from "./contants/colors";
 import Map from "./screens/Map";
+import {useCallback, useEffect, useState} from "react";
+import {init} from "./util/database";
+import * as SplashScreen from 'expo-splash-screen';
 
 const Stack = createNativeStackNavigator();
+
 export default function App() {
+    const [dbInitialized, setDbInitialized] = useState(false);
+
+    useEffect(()=>{
+        async function prepare(){
+            try {
+               await init();
+            }catch (e){
+                console.log(e)
+            }finally {
+                setDbInitialized(true)
+            }
+        }
+        prepare();
+    },[]);
+
+    const onLayoutRootView = useCallback(async () => {
+        if (dbInitialized) {
+            await SplashScreen.hideAsync();
+        }
+    }, [dbInitialized]);
+
+    if(!dbInitialized){
+        return null;
+    }
+
   return (
       <>
         <StatusBar style='dark' />
