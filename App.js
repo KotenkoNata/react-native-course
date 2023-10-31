@@ -18,7 +18,7 @@ export default function App() {
                 headerTintColor: Colors.gray700,
                 contentStyle: {backgroundColor: Colors.gray700}
             }}>
-              <Stack.Screen name='Your Favorite Places'
+              <Stack.Screen name='AllPlaces'
                             component={AllPlaces}
                             options={({navigation})=>({
                                 title: "Your favorite Places",
