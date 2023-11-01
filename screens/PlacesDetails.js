@@ -7,7 +7,10 @@ import {fetchPlaceDetails} from "../util/database";
 function PlacesDetails({route, navigation}) {
     const [fetchedPlace, setFetchedPlace] = useState();
     function showOnMapHandler() {
-        
+        navigation.navigate('Map', {
+            initialLat: fetchedPlace.location.lat,
+            initialLng: fetchedPlace.location.lng
+        });
     }
 
     const selectedPlaceId = route.params.placeId;
