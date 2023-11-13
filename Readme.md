@@ -1,7 +1,6 @@
-## React Native Guess My Number App
+## React Native My Meal App
 
-This is a simple React Native app that lets users play the "Guess My Number" game.
-The goal of the game is to guess the number that the person is thinking of, which is a random number between 1 and 99.
+This is a simple React Native app that lets users store recipes.
 
 ### Getting Started
 
@@ -19,15 +18,18 @@ To use the app, you can run it on your local device using the following commands
 For iOS: ```npm run i```
 For Android: ```npm run a```
 
-### How to Play
+### How to install on phone
 
-1. When the game starts, the app will generate a random number between 1 and 99.
+You can install this internal distribution build on any device for which this build was provisioned. Learn more.
 
-2. The user must then guess the number by entering their guess into the text input and tapping the "Guess" button.
+Scan this code with a device
 
-3. After each guess, the app will give the user a hint to help them narrow down the range of possible numbers. The hint will tell the user whether their guess is higher or lower than the app's number.
+Open the Camera app and point it at this code. Then tap the notification that appears.
 
-4. The user can continue guessing until they correctly guess the app's number.
+![Screenshot 2023-11-13 at 14.46.01.png](assets/Screenshot%202023-11-13%20at%2014.55.28.png)
 
-5. Once the user has guessed the correct number, the app will display a message congratulating them and offering the option to play again.
+How to install this build on Android
 
+On devices running Android 8.0 (API level 26) and higher, you must navigate to the Install unknown apps system settings screen to enable app installations from a particular location (i.e. the web browser you are downloading the app from).
+
+On devices running Android 7.1.1 (API level 25) and lower, you should enable the Unknown sources system setting, found in Settings > Security on your device.
