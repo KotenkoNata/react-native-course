@@ -16,6 +16,12 @@ Notifications.setNotificationHandler({
 
 export default function App() {
 
+  useEffect(()=>{
+    Notifications.getExpoPushTokenAsync().then(pushTokenData=>{
+      console.log(`pushTokenData`,pushTokenData)
+    });
+  },[])
+
  useEffect(()=>{
    const subscription1 = Notifications.addNotificationReceivedListener((notification)=>{
      console.log(`NOTIFICATION RECEIVED`, notification);
