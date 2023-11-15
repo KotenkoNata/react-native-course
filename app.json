@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "react-native-course",
-    "slug": "react-native-course",
+    "slug": "notifications",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -34,6 +34,12 @@
           "color": "#ffffff"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "5feb3877-f7b0-412c-9cde-7602e3c22eb1"
+      }
+    },
+    "owner": "kotenkonata"
   }
 }
